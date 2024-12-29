@@ -3,7 +3,7 @@ import Logo from "../assets/icons/little-lemon-footer.png";
 export default function Footer() {
     return (
         <footer className="font-karla">
-            <div className="max-w-3xl flex flex-wrap gap-9 sm:justify-between mx-auto px-5 py-14">
+            <div className="max-w-3xl grid grid-cols-2 sm:flex sm:flex-wrap gap-9 sm:justify-between mx-auto px-5 py-14">
                 <img src={Logo} className="w-24" alt="Little Lemon" />
                 <div>
                     <p className="font-bold mb-3">Doormat Navigation</p>

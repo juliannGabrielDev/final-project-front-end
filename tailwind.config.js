@@ -13,6 +13,7 @@ export default {
       colors: {
         primaryGreen: '#495E57',
         primaryYellow: '#F4CE14',
+        highlightWhite: '#EDEFEE',
       },
     },
   },

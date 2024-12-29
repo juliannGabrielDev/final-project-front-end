@@ -1,12 +1,17 @@
 import PropTypes from "prop-types";
 
-export default function Button( { children, className }) {
+export default function Button(props) {
     return (
-        <button className={`bg-primaryYellow rounded-2xl font-bold font-karla text-sm md:text-base p-1 ${ className }`}>{ children }</button>
+        <button className={`${props.bg} ${props.textColor} ${ props.width } rounded-2xl font-bold font-karla text-sm md:text-base py-1 px-2 active:scale-95 transition-transform`}>{ props.children }</button>
     )
 }
 
 Button.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
+    width: PropTypes.string,
+    bg: PropTypes.string,
+    textColor: PropTypes.string,
 }
+Button.defaultProps = {
+    bg: 'bg-primaryYellow',
+};
