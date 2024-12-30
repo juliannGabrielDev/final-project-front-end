@@ -35,7 +35,7 @@ function DishCard(props) {
         <article className="grid grid-cols-2 grid-rows-auto gap-y-2 border-t-2 md:bg-highlightWhite md:border-2 md:p-3">
             <h3 className="font-medium col-span-2">{props.name}</h3>
             <p className="text-primaryGreen text-sm md:col-span-2">{props.description}</p>
-            <span className="font-medium text-primaryGreen">{props.price}</span>
+            <span className="font-medium text-secondaryCoral">{props.price}</span>
             <img src={props.image} className="w-24 object-cover h-24 rounded-2xl row-start-2 col-start-2 justify-self-end md:row-start-1 md:col-start-1 md:col-span-2 md:w-full" alt="Dish" />
         </article>
     )

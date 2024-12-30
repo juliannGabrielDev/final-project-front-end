@@ -14,6 +14,7 @@ export default {
         primaryGreen: '#495E57',
         primaryYellow: '#F4CE14',
         highlightWhite: '#EDEFEE',
+        secondaryCoral: '#EE9972',
       },
     },
   },

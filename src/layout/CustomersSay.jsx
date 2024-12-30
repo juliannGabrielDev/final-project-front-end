@@ -28,9 +28,9 @@ export default function CustomersSay() {
 
     return (
         <section className="bg-primaryGreen">
-            <div className="flex flex-col gap-8 max-w-3xl mx-auto px-5 py-28">
+            <div className="flex flex-col gap-8 max-w-3xl mx-auto p-5 md:py-28">
                 <h2 className="text-white text-center text-3xl font-bold font-markazi">Testimonials</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
                     {opinions.map((opinion, index) => (
                         <OpinionCard
                             key={index}
