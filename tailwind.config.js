@@ -17,6 +17,20 @@ export default {
       },
     },
   },
-  plugins: [],
-}
+  plugins: [
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3457912325.
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+      };
+      addUtilities(newUtilities);
+    }
+  ],
+};
 
