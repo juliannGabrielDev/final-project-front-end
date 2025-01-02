@@ -16,6 +16,9 @@ export default {
         highlightWhite: '#EDEFEE',
         secondaryCoral: '#EE9972',
       },
+      screens: {
+        xs: '480px',
+      },
     },
   },
   plugins: [

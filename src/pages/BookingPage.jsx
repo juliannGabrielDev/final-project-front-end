@@ -1,9 +1,9 @@
 export default function BookingPage() {
     return (
-        <>
+        <section className="p-5">
             <h1>Book a Table</h1>
             <BookingForm />
-        </>
+        </section>
     )
 }
 

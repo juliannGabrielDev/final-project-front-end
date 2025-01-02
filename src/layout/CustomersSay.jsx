@@ -49,8 +49,15 @@ export default function CustomersSay() {
 function OpinionCard(props) {
     return (
         <article className="bg-highlightWhite p-3 grid grid-cols-2 gap-3 font-karla border-2">
-            <div className="col-span-2" arial-label={`${props.rating} stars rating`}>⭐ {props.rating}</div>
-            <img src={props.profile} className="w-20 rounded-2xl" alt={`Profile picture of ${props.name}`} />
+            <div 
+                className="col-span-2" 
+                arial-label={`${props.rating} stars rating`}>
+                    ⭐ {props.rating}
+            </div>
+            <img 
+                src={props.profile} 
+                className="col-span-2 w-full xs:col-span-1 xs:w-20 rounded-2xl" 
+                alt={`Profile picture of ${props.name}`} />
             <h3 className="font-medium">{props.name}</h3>
             <p className="col-span-2 text-xs">{props.comment}</p>
         </article>
