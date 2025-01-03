@@ -17,7 +17,7 @@ export default function Nav() {
 
 // Este es el componente que contiene la lógica de navegación
 function NavContent() {
-    const { navMenu, navbar, handleMenu } = useNavMenuContext();  // Llamando a useNavMenuContext dentro del componente hijo que está dentro del proveedor
+    const { navMenu, navbar } = useNavMenuContext();  // Llamando a useNavMenuContext dentro del componente hijo que está dentro del proveedor
 
     return (
         <nav ref={navbar} className="bg-white sticky top-0 z-10">
@@ -82,6 +82,11 @@ function NavLink({ route, children }) {
         </Link>
     )
 }
+
+NavLink.propTypes = {
+    route: PropTypes.string,
+    children: PropTypes.string,
+};
 
 NavMenu.propTypes = {
     variant: PropTypes.string,

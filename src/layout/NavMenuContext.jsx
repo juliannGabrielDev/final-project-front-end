@@ -1,4 +1,5 @@
 import {createContext, useContext, useRef, useState} from "react";
+import PropTypes from "prop-types";
 
 // Create a context for the NavMenu component
 const NavMenuContext = createContext();
@@ -30,4 +31,8 @@ export function NavMenuProvider({children}) {
 
 export function useNavMenuContext() {
     return useContext(NavMenuContext);
+}
+
+NavMenuProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 }
