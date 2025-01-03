@@ -1,12 +1,7 @@
 import Food1 from '../assets/restaurantfood.jpg';
-// import Button from '../components/Button';
-import Categories from '../layout/Categories';
-import Specials from '../layout/Specials';
-import CustomersSay from '../layout/CustomersSay';
-import Chicago from '../layout/Chicago';
-// import H1 from '../components/H1';
 
 import { Button, H1 } from '../components';
+import {Categories, Chicago, CustomersSay, Specials} from '../layout';
 
 import { Link } from 'react-router-dom';
 
@@ -24,7 +19,7 @@ export default function Home() {
                         alt="Dish" 
                     />
                     <Link to="/booking">
-                        <Button width="w-32 md:w-36">
+                        <Button variant="bg-primaryYellow w-32 md:w-36">
                             Reserve a table
                         </Button>
                     </Link>

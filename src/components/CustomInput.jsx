@@ -7,7 +7,7 @@ export default function CustomInput({ id, type, label, placeholder, value, onCha
                 htmlFor={id}
                 className="block mb-2 font-medium"
             >
-                    {label}
+                {label}
             </label>
             <input
                 id={id}
@@ -28,6 +28,6 @@ CustomInput.propTypes = {
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     rest: PropTypes.object,
 }
