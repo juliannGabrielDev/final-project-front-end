@@ -29,3 +29,8 @@ export const fetchAPI = function(date) {
     console.log('Generated times for', parsedDate, result);
     return result;
 };
+
+export const submitAPI = function(formData) {
+    console.log('Submitting:', formData);
+    return true;
+};

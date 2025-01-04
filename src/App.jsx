@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
-import Nav from "./layout/Nav";
-import Home from "./pages/Home";
-import Footer from "./layout/Footer";
-import BookingPage from "./pages/BookingPage";
+import {Nav, Footer} from './layout';
+import {Home, BookingPage, ConfirmedBooking} from './pages';
 
 function App() {
   return (
@@ -14,6 +12,7 @@ function App() {
         {/* main and header here (<Home />) */}
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<BookingPage />} />
+        <Route path="/confirmed-booking" element={<ConfirmedBooking />} />
       </Routes>
 
       <Footer />

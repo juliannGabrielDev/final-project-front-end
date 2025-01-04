@@ -1,9 +1,9 @@
-import { H1 } from "../components";
+import { H1 } from '../components';
 
 export default function ConfirmedBooking() {
   return (
-    <main>
-      <H1>Confirmed</H1>
+    <main className="bg-primaryGreen">
+      <H1 variant="text-primaryYellow text-center p-4">Reservation confirmed</H1>
     </main>
   );
 }

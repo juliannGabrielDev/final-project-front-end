@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function CustomInput({ id, type, label, placeholder, value, onChange, ...rest }) {
+export default function CustomInput({ id, type, label, placeholder, value, onChange, variant, ...rest }) {
     return (
         <>
             <label
@@ -16,7 +16,7 @@ export default function CustomInput({ id, type, label, placeholder, value, onCha
                 value={value}
                 onChange={onChange}
                 {...rest}
-                className="block mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
+                className={`${variant} block mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen`}
             />
         </>
     )
@@ -29,5 +29,6 @@ CustomInput.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
+    variant: PropTypes.string,
     rest: PropTypes.object,
 }
