@@ -1,83 +1,130 @@
-import { useState } from 'react';
+import { useState, useReducer, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button, CustomInput, H1 } from '../components';
 
-export default function BookingPage() {
-    return (
-        <section className="p-5">
-            <H1 variant="text-primaryGreen">Book a Table</H1>
-            <BookingForm />
-        </section>
-    )
+// Función para manejar la llamada a fetchAPI con manejo de errores
+async function safeFetchAPI(date) {
+    try {
+        const times = await fetchAPI(date);
+        return times || []; // Si no devuelve nada, devuelve un array vacío
+    } catch (error) {
+        console.error("Error fetching times:", error);
+        return []; // En caso de error, devuelve un array vacío
+    }
 }
 
-function BookingForm() {
+function timesReducer(state, action) {
+    switch (action.type) {
+        case 'UPDATE_TIMES':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default function BookingPage() {
+    const [availableTimes, dispatch] = useReducer(timesReducer, []);
+
+    useEffect(() => {
+        async function fetchInitialTimes() {
+            const today = new Date().toISOString().split('T')[0];
+            const times = await safeFetchAPI(today); // Usando safeFetchAPI
+            dispatch({ type: 'UPDATE_TIMES', payload: times });
+        }
+        fetchInitialTimes();
+    }, []);
+
+    async function updateTimes(selectedDate) {
+        const times = await safeFetchAPI(selectedDate); // Usando safeFetchAPI
+        dispatch({ type: 'UPDATE_TIMES', payload: times });
+    }
+
+    return (
+        <main className="p-5">
+            <H1 variant="text-primaryGreen">Book a Table</H1>
+            <BookingForm availableTimes={availableTimes} updateTimes={updateTimes} />
+        </main>
+    );
+}
+
+function BookingForm({ availableTimes, updateTimes }) {
     const [formData, setFormData] = useState({
         date: '',
         guests: '1',
         time: '',
         occasion: ''
-    })
+    });
 
     function handleChange(e) {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value,
-        })
-        console.log({ ...formData, [e.target.id]: e.target.value });
-    }
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
 
-    const [avabibleTime, setAvabibleTime] = useState([
-        '17:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00',
-    ]);
+        if (id === 'date') {
+            updateTimes(value);
+        }
+    }
 
     return (
         <form className="max-w-sm mx-auto">
             <CustomInput
                 id="date"
                 type="date"
-                label="Choose a date"
+                label="Choose a date *"
                 value={formData.date}
                 onChange={handleChange}
+                aria-required="true"
+                aria-label="Select reservation date"
             />
+            <label htmlFor="res-time" className="mb-2 font-medium">
+                Choose time *
+            </label>
+            <select
+                id="time"
+                value={formData.time}
+                onChange={handleChange}
+                aria-label="Select the time for your reservation"
+                aria-required="true"
+                className="lock mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
+            >
+                {availableTimes.map((time) => (
+                    <option key={time} value={time}>{time}</option>
+                ))}
+            </select>
             <CustomInput
                 id="guests"
                 type="number"
-                label="Number of guests"
+                label="Number of guests *"
                 placeholder="1"
                 value={formData.guests}
                 onChange={handleChange}
                 min="1"
                 max="10"
+                aria-required="true"
+                aria-label="Select the number of guests for your reservation"
+                aria-invalid={formData.guests <= 0 ? "true" : "false"}
             />
-            <label htmlFor="res-time" className="mb-2 font-medium">Choose time</label>
-            <select 
-                id="time" 
-                value={formData.time}
-                onChange={handleChange}
-                className="lock mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
-            >
-                {avabibleTime.map((time) => (
-                    <option key={time} value={time}>{time}</option>
-                ))}
-            </select>
-            <label htmlFor="occasion" className="mb-2 font-medium">Occasion</label>
-            <select 
-                id="occasion" 
+            <label htmlFor="occasion" className="mb-2 font-medium">
+                Occasion *
+            </label>
+            <select
+                id="occasion"
                 value={formData.occasion}
                 onChange={handleChange}
-                className="lock mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen">
+                aria-label="Select the occasion for your reservation"
+                aria-required="true"
+                className="lock mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
+            >
                 <option value="Birthday">Birthday</option>
                 <option value="Anniversary">Anniversary</option>
             </select>
-
-            <Button variant="bg-primaryYellow px-3 py-3">
-                <input type="submit" value="Make your reservation" />
+            <Button variant="bg-primaryYellow px-3 py-3" aria-label="Make your reservation">
+                <input type="submit" value="Make your reservation" aria-hidden="true" />
             </Button>
         </form>
-    )
+    );
 }
+
+BookingForm.propTypes = {
+    availableTimes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    updateTimes: PropTypes.func.isRequired
+};
