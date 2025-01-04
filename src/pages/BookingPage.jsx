@@ -1,15 +1,15 @@
 import { useState, useReducer, useEffect } from 'react';
+import { fetchAPI } from '../api/api';
 import PropTypes from 'prop-types';
 import { Button, CustomInput, H1 } from '../components';
 
-// Función para manejar la llamada a fetchAPI con manejo de errores
 async function safeFetchAPI(date) {
     try {
         const times = await fetchAPI(date);
-        return times || []; // Si no devuelve nada, devuelve un array vacío
+        return times || [];
     } catch (error) {
         console.error("Error fetching times:", error);
-        return []; // En caso de error, devuelve un array vacío
+        return [];
     }
 }
 
@@ -28,14 +28,18 @@ export default function BookingPage() {
     useEffect(() => {
         async function fetchInitialTimes() {
             const today = new Date().toISOString().split('T')[0];
-            const times = await safeFetchAPI(today); // Usando safeFetchAPI
+            console.log('Fetching initial times for:', today);
+            const times = await safeFetchAPI(today);
+            console.log('Fetched times:', times);
             dispatch({ type: 'UPDATE_TIMES', payload: times });
         }
         fetchInitialTimes();
     }, []);
 
     async function updateTimes(selectedDate) {
-        const times = await safeFetchAPI(selectedDate); // Usando safeFetchAPI
+        console.log('Updating times for date:', selectedDate);
+        const times = await safeFetchAPI(selectedDate);
+        console.log('Updated times:', times);
         dispatch({ type: 'UPDATE_TIMES', payload: times });
     }
 
@@ -84,11 +88,15 @@ function BookingForm({ availableTimes, updateTimes }) {
                 onChange={handleChange}
                 aria-label="Select the time for your reservation"
                 aria-required="true"
-                className="lock mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
+                className="block mb-3 w-full bg-highlightWhite outline-none rounded-2xl p-2 border-2 focus:border-primaryGreen focus:ring-primaryGreen"
             >
-                {availableTimes.map((time) => (
-                    <option key={time} value={time}>{time}</option>
-                ))}
+                {availableTimes.length > 0 ? (
+                    availableTimes.map((time) => (
+                        <option key={time} value={time}>{time}</option>
+                    ))
+                ) : (
+                    <option>No available times</option>
+                )}
             </select>
             <CustomInput
                 id="guests"
