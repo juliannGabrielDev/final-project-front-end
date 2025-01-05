@@ -11,6 +11,7 @@
     "test": "react-scripts test"
   },
   "dependencies": {
+    "boxicons": "^2.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.1"

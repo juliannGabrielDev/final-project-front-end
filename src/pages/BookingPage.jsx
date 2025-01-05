@@ -2,7 +2,9 @@ import { useState, useReducer, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchAPI, submitAPI } from '../api/api';
 import PropTypes from 'prop-types';
+
 import { Button, CustomInput, H1 } from '../components';
+import 'boxicons';
 
 async function safeFetchAPI(date) {
     try {
@@ -25,6 +27,7 @@ function timesReducer(state, action) {
 
 export default function BookingPage() {
     const [availableTimes, dispatch] = useReducer(timesReducer, []);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchInitialTimes() {
@@ -46,13 +49,20 @@ export default function BookingPage() {
 
     return (
         <main className="p-5 max-w-3xl mx-auto">
+            <Button
+                id="back-button"
+                variant="bg-highlightWhite px-4 py-2 flex items-center mb-5"
+                onClick={() => navigate('/')}
+            >
+                <box-icon name="arrow-back" color="#495E57"></box-icon>
+            </Button>
             <H1 variant="text-primaryGreen text-center mb-5">Book a Table</H1>
-            <BookingForm availableTimes={availableTimes} updateTimes={updateTimes} />
+            <BookingForm availableTimes={availableTimes} updateTimes={updateTimes} navigate={navigate} />
         </main>
     );
 }
 
-function BookingForm({ availableTimes, updateTimes }) {
+function BookingForm({ availableTimes, updateTimes, navigate }) {
     const [formData, setFormData] = useState({
         date: '',
         guests: '1',
@@ -80,8 +90,6 @@ function BookingForm({ availableTimes, updateTimes }) {
             formData.occasion;
         setIsFormValid(isValid);
     }, [formData]);
-
-    const navigate = useNavigate();
 
     function submitForm(e, formData) {
         e.preventDefault();
@@ -183,5 +191,6 @@ function BookingForm({ availableTimes, updateTimes }) {
 
 BookingForm.propTypes = {
     availableTimes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    updateTimes: PropTypes.func.isRequired
+    updateTimes: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
 };
