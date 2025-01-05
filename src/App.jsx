@@ -2,7 +2,21 @@ import { Routes, Route } from "react-router-dom";
 
 import {Nav, Footer} from './layout';
 import {Home, BookingPage, ConfirmedBooking} from './pages';
+/*
 
+
+
+Important:
+Run the following commands
+
+npm install
+npm run dev
+
+
+
+
+
+*/
 function App() {
   return (
     <div>
